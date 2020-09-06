@@ -1,0 +1,24 @@
+<div class="container w-50 m-v-padding">
+    <h1>Thêm quản trị</h1>
+    <!-- {{dangKyForm.value | json}} -->
+
+    <form [formGroup]="dangKyForm"
+         action=""
+         (ngSubmit)="themQuanTri()">
+
+         <mat-form-field>
+             <input matInput type="email" placeholder="Email" formControlName="email">
+             <mat-error *ngIf="email.errors?.required && email.touched">
+                email must not be empty
+             </mat-error>
+             <mat-error *ngIf="email.errors?.email && email.touched">
+                email not valid
+             </mat-error>
+         </mat-form-field>
+         <button mat-raised-button 
+                class="m-h-margin m-width"
+                [disabled]="dangKyForm.invalid" 
+                color="primary">Thêm quản trị
+        </button>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+td.td-duong-dan, td.td-hinh-anh, td.td-ma {
+    word-break: break-all;
+}
+td.td-hinh-anh img {
+    height: 100px;
+    width: auto; 
+}
+
+#thMa {
+    width: 10%;
+}
+#thThoiGianTao {
+    width: 10%;
+}
+#thHinhAnh {
+    width: 25%;
+}
+
+td {
+    vertical-align: top;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+button {
+    margin: 20px 50px;
+    width: 100px;
+}
+
+#img-preview {
+    padding: 10px;
+    height: 200px;
+    width: auto;
+}
+
+#fm-noi-dung {
+    height: 200px;
+}

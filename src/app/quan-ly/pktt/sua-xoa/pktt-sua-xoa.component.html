@@ -1,0 +1,189 @@
+<div class="container m-v-padding">
+    <div class="container">
+        <form [formGroup]="pkttForm">
+            
+        <div class="row">
+            <div class="col-md-8">
+            <mat-form-field>
+                <input matInput type="text" 
+                placeholder="Tên phụ kiện" 
+                formControlName="ten">
+                <mat-error *ngIf="ten.errors?.required && ten.touched">
+                Tên không được trống
+                </mat-error>
+            </mat-form-field>
+            </div>
+            <div class="col-md-4">
+            <mat-form-field>
+                <input matInput type="text" 
+                readonly
+                placeholder="Mã phụ kiện" 
+                formControlName="ma">
+            </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            <mat-form-field appearance="fill">
+                <mat-label>Loại phụ kiện</mat-label>
+                <mat-select formControlName="loai">
+                    <mat-option *ngFor="let loai of loaiOptions" [value]="loai">
+                    {{loai}}
+                    </mat-option>
+                </mat-select>                
+                <mat-error *ngIf="loai.errors?.required && loai.touched">
+                    Loại không được trống
+                </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field>
+                    <input matInput type="text" 
+                    placeholder="Màu sắc" 
+                    formControlName="mau">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field>
+                    <input matInput type="text" 
+                    placeholder="Hãng thời trang" 
+                    formControlName="hang">
+                </mat-form-field>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-8 row">
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput 
+                    type="number" 
+                    min="0"
+                    step="1000"
+                    placeholder="Giá thành" 
+                    formControlName="gia">       
+                    <mat-error *ngIf="gia.errors?.required && gia.touched">
+                        Giá không được để trống
+                    </mat-error> 
+                    <mat-error *ngIf="gia.errors?.min && gia.touched">
+                        Giá không nhỏ hơn 0
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput type="number" 
+                    placeholder="Số lượng" 
+                    min="0"
+                    formControlName="soLuong">
+                </mat-form-field>   
+                <mat-error *ngIf="soLuong.errors?.min && soLuong.touched">
+                    số lượng không nhỏ hơn 0
+                </mat-error>
+                <mat-error *ngIf="soLuong.errors?.required && soLuong.touched">
+                    Số lượng không được để trống
+                </mat-error> 
+            </div>
+
+            <div class="col-md-12">
+                <mat-form-field>
+                    <textarea matInput 
+                    placeholder="Mô tả phụ kiện" 
+                    formControlName="moTa" 
+                    ></textarea>
+                </mat-form-field>
+            </div>
+            </div>
+
+
+            <div class="col-md-4">
+                Hình ảnh
+                <p-fileUpload name="myfile[]" 
+                class="inner-white"
+                customUpload="true" 
+                accept="image/*" 
+                [auto]="true"
+                (uploadHandler)="processFile($event)">
+                Hình ảnh
+                </p-fileUpload>
+                <img [src]="urlHinhAnh" alt="" id="img-preview" />
+            </div>
+        </div>
+            
+        <button mat-raised-button 
+                [disabled]="pkttForm.invalid" color="primary"
+                (click)="suaPktt()">Sửa</button>
+        <button mat-raised-button 
+                [disabled]="pkttForm.invalid" color="primary"
+                (click)="xoaPktt()">Xóa</button>
+        </form>
+    </div>
+
+    <!-- bảng liệt kê danh sách pktt trong database -->
+    <p-table #pkttTable [value]="dsPktt" 
+        [scrollable]="true"
+        [(selection)]="pkttChon" 
+        dataKey="Ma" 
+        [paginator]="true" 
+        [rows]="5"
+        frozenWidth="50px"
+        (onPage)="handleOnPage($event)">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col id="thMa">
+                <col id="thTen">
+                <col id="thLoai">
+                <col id="thHinh">
+                <col id="thHang">
+                <col id="thMau">
+                <col id="thGia">
+                <col id="thSL">
+                <col id="thMoTa">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Mã</th>
+                <th>Tên</th>
+                <th>Loại</th>
+                <th>Hình ảnh</th>
+                <th>Hãng</th>
+                <th>Màu</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Mô tả</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pktt>
+            <tr>
+                <td class="word-break">{{pktt.Ma}}</td>
+                <td class=" ">{{pktt.Ten}}</td>
+                <td class=" ">{{pktt.Loai}}</td>
+                <td class=" "><img class="img-in-table-2" src="{{pktt.Hinh}}" alt=""></td>
+                <td class=" ">{{pktt.Hang}}</td>
+                <td class=" ">{{pktt.Mau}}</td>
+                <td class=" ">{{pktt.Gia|currency:'VND':'symbol'}}</td>
+                <td class="">{{pktt.SoLuong}}</td>
+                <td class="td-mo-ta">{{pktt.MoTa}}</td>
+            </tr>
+        </ng-template>
+
+        
+        <ng-template pTemplate="frozenheader">
+            <tr>
+                <th style="width: 50px;"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="frozenbody" let-pktt>
+            <tr>
+                <td>
+                    <p-tableRadioButton 
+                    (click)="rowClicked()"
+                    [value]="pktt"
+                    style="width: 50px;"></p-tableRadioButton>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-toast></p-toast>
+</div>

@@ -1,0 +1,78 @@
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/nova-light/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+
+.m-v-padding {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.s-v-padding {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.m-h-margin {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.m-width {
+    width: 150px;
+}
+
+.inner-blue * {
+    color: blue;
+}
+.blue {
+    color: blue;
+}
+
+.white {
+    color: white;
+}
+.inner-white * {
+    color: white;
+}
+
+mat-form-field {
+    width: 100%;
+}
+.word-break {
+    word-break: break-all;
+}
+.inner-align-top * {
+    vertical-align: top;
+}
+.align-top {
+    vertical-align: top;
+}
+
+.img-in-table-1 {
+    height: auto;
+    width: 120px; 
+}
+.img-in-table-2 {
+    height: 100px;
+    width: auto; 
+}
+
+.w-50 {
+    width: 50px;
+}
+.w-70 {
+    width: 70px;
+}
+.w-100 {
+    width: 100px;
+}
+.w-120 {
+    width: 120px;
+}
+.w-150 {
+    width: 150px;
+}
+.w-200 {
+    width: 200px;
+}
+.w-300 {
+    width: 300px;
+}

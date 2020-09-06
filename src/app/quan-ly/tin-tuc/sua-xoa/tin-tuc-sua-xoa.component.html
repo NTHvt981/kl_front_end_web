@@ -1,0 +1,96 @@
+<div class="container m-v-padding">
+    <div class="container">
+        <form [formGroup]="tinTucForm">
+            
+            <div class="row">
+                <div class="col-md-4">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Mã" formControlName="ma" readonly>
+                </mat-form-field>
+                </div>
+                <div class="col-md-8">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Tiêu đề" formControlName="tieuDe">
+                    <mat-error *ngIf="tieuDe.errors?.required && tieuDe.touched">
+                    Tiêu đề không được trống
+                    </mat-error>
+                </mat-form-field>
+                </div>
+            </div>
+            
+            <br>
+    
+            <mat-form-field>
+                <input matInput type="text" placeholder="Đường dẫn" formControlName="duongDan">
+                <mat-error *ngIf="duongDan.errors?.required && duongDan.touched">
+                Đường dẫn không được trống
+                </mat-error>
+            </mat-form-field>
+    
+            <br>
+            
+            <div class="row">
+            <div class="col-md-4">
+                <p-fileUpload name="myfile[]" customUpload="true" 
+                accept="image/*" [auto]="true"
+                (uploadHandler)="processFile($event)"></p-fileUpload>
+                <img [src]="urlHinhAnh" alt="" id="img-preview" />
+            </div>
+            <div class="col-md-8">
+                <mat-form-field>
+                    <textarea matInput 
+                    id="fm-noi-dung"
+                    placeholder="Nội dung" 
+                    formControlName="noiDung" 
+                    ></textarea>
+                </mat-form-field>
+            </div>
+            </div>
+            
+            <button mat-raised-button 
+                    [disabled]="tinTucForm.invalid" color="primary"
+                    (click)="suaTinTuc()">Sửa</button>
+            <button mat-raised-button 
+                    [disabled]="tinTucForm.invalid" color="primary"
+                    (click)="xoaTinTuc()">Xóa</button>
+        </form>
+    </div>
+
+    <!-- bảng liệt kê danh sách tin tức trong database -->
+    <p-table [value]="dsTinTuc"
+        [(selection)]="tinTucChon" 
+        dataKey="Ma" 
+        [paginator]="true" 
+        [rows]="5"
+        (onPage)="handleOnPage($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3em"></th>
+                <th id="thMa">Mã</th>
+                <th id="thTieuDe">Tiêu đề</th>
+                <th id="thDuongDan">Đường dẫn</th>
+                <th id="thNoiDung">Nội dung</th>
+                <th id="thHinhAnh">Hình ảnh</th>
+                <th id="thThoiGianTao">Thời gian tạo</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-tinTuc>
+            <tr>
+                <td>
+                    <p-tableRadioButton 
+                    (click)="rowClicked()"
+                    [value]="tinTuc"></p-tableRadioButton>
+                </td>
+                <td class="td-ma">{{tinTuc.Ma}}</td>
+                <td class="td-tieu-de">{{tinTuc.TieuDe}}</td>
+                <td class="td-duong-dan">{{tinTuc.DuongDan}}</td>
+                <td class="td-noi-dung">{{tinTuc.NoiDung}}</td>
+                <td class="td-hinh-anh">
+                    <img src="{{tinTuc.HinhAnh}}" alt="">
+                </td> 
+                <td class="td-thoi-gian-tao">{{tinTuc.ThoiGianTao}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-toast></p-toast>
+</div>

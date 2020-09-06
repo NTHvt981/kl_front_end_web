@@ -1,0 +1,43 @@
+<div class="container w-50 m-v-padding">
+    <h1>Thêm tin tức</h1>
+    <!-- {{tinTucForm.value | json}} -->
+
+    <form [formGroup]="tinTucForm"
+        action=""
+        (ngSubmit)="themTinTuc()">
+
+        <mat-form-field>
+            <input matInput type="text" placeholder="Tiêu đề" formControlName="tieuDe">
+            <mat-error *ngIf="tieuDe.errors?.required && tieuDe.touched">
+            Tiêu đề không được trống
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Đường dẫn" formControlName="duongDan">
+            <mat-error *ngIf="duongDan.errors?.required && duongDan.touched">
+            Đường dẫn không được trống
+            </mat-error>
+        </mat-form-field>
+        <h3>Hình ảnh</h3>
+        <p-fileUpload name="myfile[]" 
+        class="inner-white"
+        customUpload="true" 
+        accept="image/*" 
+        [auto]="true"
+        (uploadHandler)="processFile($event)"></p-fileUpload>
+        <mat-form-field>
+            <textarea matInput 
+            placeholder="Nội dung" 
+            formControlName="noiDung" 
+            ></textarea>
+        </mat-form-field>
+
+        <br>
+
+        <button mat-raised-button 
+                [disabled]="tinTucForm.invalid" 
+                color="primary">Thêm</button>
+    </form>
+
+    <p-toast></p-toast>
+</div>
