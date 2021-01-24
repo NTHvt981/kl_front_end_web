@@ -4,10 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
-import { TinTucService } from './../../../services/database/tin-tuc/tin-tuc.service';
+import { TinTucService } from '../../../services/database/tin-tuc.service';
 import { TinTuc, TinTucConverter } from './../../../models/TinTuc.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 @Component({
   selector: 'app-tin-tuc-sua-xoa',
@@ -83,7 +84,7 @@ export class TinTucSuaXoaComponent implements OnInit {
     if (this.fileHinhAnh != undefined)
     {
       await this.storage.upload(path, this.fileHinhAnh)
-                  .then(async (snapShot: firebase.storage.UploadTaskSnapshot)=> {
+                  .then(async (snapShot: UploadTaskSnapshot)=> {
         console.log("Upload file hình thành công");
   
         await snapShot.ref.getDownloadURL().then((url)=>{

@@ -1,6 +1,6 @@
 import { switchMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { DonHang, DonHangConverter } from './../../../models/DonHang.model';
+import { DonHang, DonHangConverter } from './../../models/DonHang.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
@@ -30,8 +30,27 @@ export class DonHangService {
         )
       );
   }
+  
+  public getAllDonHang(): Promise<DonHang[]> {
+    return new Promise((resolve, reject) => {
+      this.firestore.collection<DonHang>('DonHang').get().subscribe(
+        (value) => {
+          let donHangs: DonHang[] = [];
 
-  public async chuyenTinhTrang(dsDonHang:DonHang[], tinhTrangDen:string): Promise<boolean> {
+          value.docs.forEach((snap) => {
+            let dh = snap.data() as DonHang;
+            dh.ChiTietDonHangs = [];
+
+            donHangs.push(dh);
+          });
+
+          resolve(donHangs);
+        }
+      )
+    });
+  }
+
+  public async chuyenTinhTrangAll(dsDonHang:DonHang[], tinhTrangDen:string): Promise<boolean> {
     let result = true;
 
     dsDonHang.forEach(async donHang => {
@@ -44,6 +63,21 @@ export class DonHangService {
       })
       .then(()=>{console.log("Chuyển trạng thái thành công")})
     });
+
+    return result;
+  }
+
+  public async chuyenTinhTrang(donHang:DonHang, tinhTrangDen:string): Promise<boolean> {
+    let result = true;
+
+    await this.firestore.collection("DonHang").doc(donHang.Ma).update({
+      "TinhTrang": tinhTrangDen
+    })
+    .catch((error)=> {
+      result = false;
+      console.log(error);
+    })
+    .then(()=>{console.log("Chuyển trạng thái thành công")});
 
     return result;
   }

@@ -1,5 +1,5 @@
 @import '~primeicons/primeicons.css';
-@import '~primeng/resources/themes/nova-light/theme.css';
+@import '~primeng/resources/themes/nova/theme.css';
 @import '~primeng/resources/primeng.min.css';
 @import '~primeflex/primeflex.css';
 
@@ -10,6 +10,10 @@
 .s-v-padding {
     padding-top: 25px;
     padding-bottom: 25px;
+}
+.s-h-padding {
+    margin-left: 25px;
+    margin-right: 25px;
 }
 .m-h-margin {
     margin-left: 100px;
@@ -75,4 +79,8 @@ mat-form-field {
 }
 .w-300 {
     width: 300px;
+}
+
+.container {
+    background-color: white;
 }

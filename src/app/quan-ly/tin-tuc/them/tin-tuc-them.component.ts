@@ -1,5 +1,4 @@
-import { UtilService } from './../../../services/util/util.service';
-import { TinTucService } from './../../../services/database/tin-tuc/tin-tuc.service';
+import { TinTucService } from '../../../services/database/tin-tuc.service';
 import { TinTuc } from './../../../models/TinTuc.model';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
@@ -7,6 +6,7 @@ import { Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MessageService } from 'primeng/api';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 @Component({
   selector: 'app-tin-tuc-them',
@@ -63,7 +63,7 @@ export class TinTucThemComponent implements OnInit {
     if (this.fileHinhAnh != undefined)
     {
       await this.storage.upload(path, this.fileHinhAnh)
-                  .then(async (snapShot: firebase.storage.UploadTaskSnapshot)=> {
+                  .then(async (snapShot: UploadTaskSnapshot)=> {
         console.log("Upload file hình thành công");
   
         await snapShot.ref.getDownloadURL().then((url)=>{
@@ -79,7 +79,7 @@ export class TinTucThemComponent implements OnInit {
       DuongDan: this.duongDan.value,
       HinhAnh: this.urlHinhAnh as string,
       NoiDung: this.noiDung.value,
-      ThoiGianTao: Date().toString()
+      ThoiGianTao: new Date()
     }
     await this.tinTucService.themTinTuc(tinTuc)
       //Thêm tin tức LỖI

@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { PKTT } from './../../../models/PKTT.model';
+import { PKTT } from './../../models/PKTT.model';
 import { Observable } from 'rxjs';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
@@ -34,5 +34,15 @@ export class PkttService {
     return this.firestore.collection("PhuKienThoiTrang")
       .doc(maPKTT)
       .delete();
+  }
+  
+  public getPKTT(maPKTT:string):Promise<PKTT> {
+    return new Promise((resolve, reject) => {
+      this.firestore.collection("PhuKienThoiTrang")
+      .doc<PKTT>(maPKTT).get().toPromise().then((snap) => {
+        resolve(snap.data() as PKTT);
+      });
+    });
+    return ;
   }
 }

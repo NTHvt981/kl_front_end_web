@@ -4,10 +4,11 @@ import { loaiOptions } from './../../../models/PKTT.model';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { UtilService } from './../../../services/util/util.service';
-import { PkttService } from './../../../services/database/pktt/pktt.service';
+import { PkttService } from './../../../services/database/pktt.service';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PKTT } from 'src/app/models/PKTT.model';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 @Component({
   selector: 'app-pktt-sua-xoa',
@@ -100,7 +101,7 @@ export class PkttSuaXoaComponent implements OnInit {
     if (this.fileHinhAnh != undefined)
     {
       await this.storage.upload(path, this.fileHinhAnh)
-                  .then(async (snapShot: firebase.storage.UploadTaskSnapshot)=> {
+                  .then(async (snapShot: UploadTaskSnapshot)=> {
         console.log("Upload file hình thành công");
   
         await snapShot.ref.getDownloadURL().then((url)=>{

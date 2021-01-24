@@ -1,14 +1,12 @@
+import { PKTT } from './PKTT.model';
 export interface CTDH {
     Ma:         string,
     MaDonHang:  string,
     MaPhuKien:  string,
     Ten:        string,
-    Loai:       string,
     Hinh:       string,
     Gia:        number,
-    Hang:       string,
-    Mau:        string,
-    MoTa:       string,
+    PhuKienThoiTrang: PKTT,
 }
 
 // Firestore data converter
@@ -19,12 +17,8 @@ export const CTDHConverter = {
             MaDonHang:     ctdh.MaDonHang,
             MaPhuKien:     ctdh.MaPhuKien,
             Ten:           ctdh.Ten,
-            Loai:          ctdh.Loai,
             Hinh:          ctdh.Hinh,
             Gia:           ctdh.Gia,
-            Hang:          ctdh.Hang,
-            Mau:           ctdh.Mau,
-            MoTa:          ctdh.MoTa,
             };
     },
     
@@ -35,12 +29,9 @@ export const CTDHConverter = {
             MaDonHang:     ctdh.MaDonHang,
             MaPhuKien:     ctdh.MaPhuKien,
             Ten:           ctdh.Ten,
-            Loai:          ctdh.Loai,
             Hinh:          ctdh.Hinh,
             Gia:           ctdh.Gia,
-            Hang:          ctdh.Hang,
-            Mau:           ctdh.Mau,
-            MoTa:          ctdh.MoTa,
+            PhuKienThoiTrang: null
         };
         return kq;
     }

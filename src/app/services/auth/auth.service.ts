@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { error } from '@angular/compiler/src/util';
-import { auth, User } from 'firebase';
 
 // import { auth } from "firebase/auth";
 @Injectable({
@@ -51,7 +50,7 @@ export class AuthService {
         // thiếu firebase.auth.UserCredential -> credential mặc định thuộc kiểu null
         
       })
-      .then((credential: firebase.auth.UserCredential) => {
+      .then((credential: firebase.default.auth.UserCredential) => {
         // add account in QuanTri Collection
         this.router.navigate(['/']);
         let uid = credential.user.uid;
@@ -96,7 +95,7 @@ export class AuthService {
 
   public setAdmin(email:string) {
     this.firestore
-      .collection<User>("NguoiDung")
+      .collection<NguoiDung>("NguoiDung")
       .ref.where("Email", "==", email)
       .get()
       .then((snapShot) => {

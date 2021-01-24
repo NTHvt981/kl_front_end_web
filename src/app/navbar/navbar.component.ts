@@ -1,7 +1,6 @@
 import { MenuItem } from 'primeng/api';
 import { AuthService } from './../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { auth } from 'firebase';
 
 @Component({
   selector: 'app-navbar',

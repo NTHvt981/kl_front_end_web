@@ -1,12 +1,16 @@
-export interface DonHang {
-    Ma:             string,
-    MaKhachHang:    string,
-    TenKhachHang:   string,
-    SoDienThoai:    string,
-    DiaChi:         string,
-    ThoiGianDatHang:string,
-    TinhTrang:    string,
-    TongCong:    number,
+import { CTDH } from "./CTDH.model";
+import * as firebase from 'firebase';
+
+export class DonHang {
+    Ma:             string;
+    MaKhachHang:    string;
+    TenKhachHang:   string;
+    SoDienThoai:    string;
+    DiaChi:         string;
+    ThoiGianDatHang: firebase.default.firestore.Timestamp;
+    TinhTrang:    string;
+    TongCong:    number;
+    ChiTietDonHangs: CTDH[];
 }
 
 // Firestore data converter
@@ -35,6 +39,7 @@ export const DonHangConverter = {
             ThoiGianDatHang:donHang.ThoiGianDatHang,
             TinhTrang:      donHang.TinhTrang,
             TongCong:       donHang.TongCong,
+            ChiTietDonHangs: new Array<CTDH>()
         };
         return kq;
     }

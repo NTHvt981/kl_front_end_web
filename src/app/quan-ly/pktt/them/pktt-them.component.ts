@@ -2,11 +2,12 @@ import { MessageService } from 'primeng/api';
 import { UtilService } from './../../../services/util/util.service';
 import { loaiOptions } from './../../../models/PKTT.model';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { PkttService } from './../../../services/database/pktt/pktt.service';
+import { PkttService } from './../../../services/database/pktt.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PKTT } from 'src/app/models/PKTT.model';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 @Component({
   selector: 'app-pktt-them',
@@ -79,7 +80,7 @@ export class PkttThemComponent implements OnInit {
     if (this.fileHinhAnh != undefined)
     {
       await this.storage.upload(path, this.fileHinhAnh)
-                  .then(async (snapShot: firebase.storage.UploadTaskSnapshot)=> {
+                  .then(async (snapShot: UploadTaskSnapshot)=> {
         console.log("Upload file hình thành công");
   
         await snapShot.ref.getDownloadURL().then((url)=>{

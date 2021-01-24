@@ -1,3 +1,5 @@
+import { XemTinNhanComponent } from './quan-ly/tin-nhan/xem-tin-nhan/xem-tin-nhan.component';
+import { TaoThongBaoComponent } from './quan-ly/tin-nhan/tao-thong-bao/tao-thong-bao.component';
 import { ThemQuanTriComponent } from './xac-thuc/them-quan-tri/them-quan-tri.component';
 import { DonHangDaNhanComponent } from './quan-ly/don-hang/da-nhan/don-hang-da-nhan.component';
 import { DonHangDaHuyComponent } from './quan-ly/don-hang/da-huy/don-hang-da-huy.component';
@@ -98,7 +100,20 @@ const routes: Routes = [
     pathMatch: "full",
     component: DonHangDaNhanComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  // tin nhắn
+  {
+    path: "tin-nhan/them",
+    pathMatch: "full",
+    component: TaoThongBaoComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "tin-nhan/sua-xoa",
+    pathMatch: "full",
+    component: XemTinNhanComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

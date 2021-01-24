@@ -1,0 +1,9 @@
+.bg-container {
+    background: url("../images/web_bg.png") no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+
+    background-color: grey;
+    background-blend-mode: darken;
+}

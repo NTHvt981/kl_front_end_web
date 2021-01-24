@@ -22,7 +22,7 @@ export class UtilService {
     return urlHinhAnh;
   }
 
-  public  static makeRowsSameHeight() {
+  public static makeRowsSameHeight() {
     setTimeout(() => {
       if ($('.ui-table-scrollable-wrapper').length) {
         let wrapper = $('.ui-table-scrollable-wrapper');
@@ -38,6 +38,21 @@ export class UtilService {
             }
           }
         });
+      }
+    });
+  }
+
+  public static makeHieuRowsSameHeight() {
+    setTimeout(() => {
+      let w = $(this);
+      let frozen_rows: any = w.find('.hieu-1');
+      let unfrozen_rows = w.find('.hieu-2');
+      for (let i = 0; i < frozen_rows.length; i++) {
+        if (frozen_rows.eq(i).height() > unfrozen_rows.eq(i).height()) {
+          unfrozen_rows.eq(i).height(frozen_rows.eq(i).height());
+        } else if (frozen_rows.eq(i).height() < unfrozen_rows.eq(i).height()) {
+          frozen_rows.eq(i).height(unfrozen_rows.eq(i).height());
+        }
       }
     });
   }

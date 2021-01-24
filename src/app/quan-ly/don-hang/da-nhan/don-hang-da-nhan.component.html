@@ -46,7 +46,6 @@
     </div>
 
     <p-table #donHangTable [value]="dsDonHang" 
-        [scrollable]="true"
         [(selection)]="dsDonHangChon" 
         selectionMode="multiple"
         dataKey="Ma" 
@@ -57,19 +56,23 @@
         (onPage)="handleOnPage($event)">
         <ng-template pTemplate="colgroup">
             <colgroup>
-                <col>
-                <col id="thMa">
-                <col id="thMaKhach">
-                <col id="thTen">
-                <col id="thHinh">
-                <col id="thHang">
-                <col id="thMau">
-                <col id="thGia">
-                <col id="thSL">
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
+                <th style="width: 50px">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
                 
                 <th style="width: 50px;"></th>
 
@@ -83,12 +86,18 @@
                 <th>Tổng cộng</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-donHang>
-            <tr class="inner-align-top">
+        <ng-template pTemplate="body" let-donHang let-rowIndex="rowIndex">
+            <tr class="inner-align-top" >
+                <td style="width: 50px;">
+                    <p-tableCheckbox (onRowSelect) = "handleRowSelect($event)"
+                     [value]="donHang"></p-tableCheckbox>
+                </td>
                 
-                <td style="width: 50px; vertical-align: middle;">
+                <td style="width: 50px; vertical-align: middle;" class="hieu-1">
                     <p-radioButton 
-                    name = "some"
+                    name="groupname"
+                    [(ngModel)]="donHangChon"
+                    value = "{{rowIndex}}"
                     (click)="rowHoaDonClicked($event, donHang)"
                     ></p-radioButton>
                 </td>
@@ -98,7 +107,7 @@
                 <td class="td-ten-kh">{{donHang.TenKhachHang}}</td>
                 <td class="td-sdt">{{donHang.SoDienThoai}}</td>
                 <td class="td-dia-chi">{{donHang.DiaChi}}</td>
-                <td class="td-tgdh word-break">{{donHang.ThoiGianDatHang}}</td>
+                <td class="td-tgdh word-break">{{donHang.ThoiGianDatHang.updatedAt * 1000 | date:'MM-dd-yyyy'}}</td>
                 <td class="">{{donHang.TinhTrang}}</td>
                 <td class="">{{donHang.TongCong|currency:'VND':'symbol'}}</td>
             </tr>
@@ -106,106 +115,32 @@
 
         
         <ng-template pTemplate="frozenheader">
-            <tr>
-                <th style="width: 50px">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-            </tr>
         </ng-template>
         <ng-template pTemplate="frozenbody" let-donHang>
             <tr>
-                <td style="width: 50px;">
-                    <p-tableCheckbox (onRowSelect) = "handleRowSelect($event)"
-                     [value]="donHang"></p-tableCheckbox>
-                </td>
             </tr>
         </ng-template>
     </p-table>
 
     <br>
 
-    <!-- bảng liệt kê danh sách donHang trong database -->
-    <!-- <p-table #donHangTable [value]="dsDonHang" 
-        [scrollable]="true"
-        [(selection)]="donHangChon" 
-        dataKey="Ma" 
-        [paginator]="true" 
-        [rows]="10"
-        frozenWidth="50px">
-        <ng-template pTemplate="colgroup">
-            <colgroup>
-                <col id="thMa">
-                <col id="thMaKhach">
-                <col id="thTen">
-                <col id="thHinh">
-                <col id="thHang">
-                <col id="thMau">
-                <col id="thGia">
-                <col id="thSL">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Mã</th>
-                <th>Mã khách hàng</th>
-                <th>Tên khách hàng</th>
-                <th>Số điện thoại</th>
-                <th>Địa chỉ</th>
-                <th>Thời gian đặt</th>
-                <th>Tình trạng</th>
-                <th>Tổng cộng</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-donHang>
-            <tr class="inner-align-top">
-                <td class="td-ma word-break">{{donHang.Ma}}</td>
-                <td class="td-ten word-break">{{donHang.MaKhachHang}}</td>
-                <td class="td-loai">{{donHang.TenKhachHang}}</td>
-                <td class="td-hang">{{donHang.SoDienThoai}}</td>
-                <td class="td-mau">{{donHang.DiaChi}}</td>
-                <td class="word-break">{{donHang.ThoiGianDatHang}}</td>
-                <td class="">{{donHang.TinhTrang}}</td>
-                <td class="">{{donHang.TongCong|currency:'VND':'symbol'}}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="frozenheader">
-            <tr>
-                <th style="width: 50px;"></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="frozenbody" let-donHang>
-            <tr>
-                <td style="width: 50px;">
-                    <p-tableRadioButton 
-                    (click)="rowHoaDonClicked($event, donHang)"
-                    [value]="donHang"
-                    ></p-tableRadioButton>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table> -->
     <!-- bảng liệt kê danh sách Chi tiết đơn hàng dựa trên đơn hàng đã chọn trong database -->
     <p-table #ctdhTable [value]="dsCtdh" 
     [(selection)]="ctdhChon" 
     dataKey="Ma" 
     [paginator]="true" 
     [rows]="10"
-    frozenWidth="50px"
     (onPage)="handleOnPage($event)"
     >
     <ng-template pTemplate="colgroup">
         <colgroup>
             <!-- <col style="width: 5%;"> -->
-            <col style="width: 10%;">
-            <col style="width: 10%;">
-            <col style="width: 10%;">
-            <col style="width: 10%;">
-            <col style="width: 5%;">
-            
-            <col style="width: 15%;">
-            <col style="width: 10%;">
-            <col style="width: 8%;">
-            <col style="width: 8%;">
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
@@ -214,39 +149,25 @@
             <th>Mã</th>
             <th>Mã hóa đơn</th>
             <th>Mã khách hàng</th>
+
             <th>Tên phụ kiện</th>
-            <th>Loại</th>
-            
             <th>Hình ảnh</th>
             <th>Giá thành</th>
-            <th>Hãng</th>
-            <th>Màu</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ctdh>
         <tr class="inner-align-top">
-            
-            <!-- <td style="width: 50px;">
-                <p-tableRadioButton 
-                (click)="rowCthdClicked()"
-                [value]="ctdh"
-                ></p-tableRadioButton>
-            </td> -->
-            
             <td class="word-break">{{ctdh.Ma}}</td>
             <td class="word-break">{{ctdh.MaDonHang}}</td>
             <td class="word-break">{{ctdh.MaPhuKien}}</td>
             <td class="">{{ctdh.Ten}}</td>
-            <td class="">{{ctdh.Loai}}</td>
             
             <td>
                 <img class="img-in-table-1" src="{{ctdh.Hinh}}" alt="">
             </td>
             <td class="">{{ctdh.Gia|currency:'VND':'symbol'}}</td>
-            <td class="">{{ctdh.Hang}}</td>
-            <td class="">{{ctdh.Mau}}</td>
         </tr>
     </ng-template>
-</p-table>
+    </p-table>
 <p-toast></p-toast>
 </div>

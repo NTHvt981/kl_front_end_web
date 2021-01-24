@@ -26,6 +26,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {PaginatorModule} from 'primeng/paginator';
 import {MenubarModule} from 'primeng/menubar';
 import {ToastModule} from 'primeng/toast';
+import {ScrollTopModule} from 'primeng/scrolltop';
 
 // self made module
 import { AppRoutingModule } from './app-routing.module';
@@ -51,6 +52,8 @@ import { DonHangDaHuyComponent } from './quan-ly/don-hang/da-huy/don-hang-da-huy
 import { DonHangDaNhanComponent } from './quan-ly/don-hang/da-nhan/don-hang-da-nhan.component';
 import { ThemQuanTriComponent } from './xac-thuc/them-quan-tri/them-quan-tri.component';
 import { DangDatComponent } from './quan-ly/don-hang/dang-dat/dang-dat.component';
+import { TaoThongBaoComponent } from './quan-ly/tin-nhan/tao-thong-bao/tao-thong-bao.component';
+import { XemTinNhanComponent } from './quan-ly/tin-nhan/xem-tin-nhan/xem-tin-nhan.component';
 
 var firebaseConfig = {
   apiKey: "AIzaSyAOEeZAOCt8TNfDqqRed0IArzJ4Nv1A9HE",
@@ -79,6 +82,8 @@ var firebaseConfig = {
     DonHangDaNhanComponent,
     ThemQuanTriComponent,
     DangDatComponent,
+    TaoThongBaoComponent,
+    XemTinNhanComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,6 +111,7 @@ var firebaseConfig = {
     PaginatorModule,
     MenubarModule,
     ToastModule,
+    ScrollTopModule,
 
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,

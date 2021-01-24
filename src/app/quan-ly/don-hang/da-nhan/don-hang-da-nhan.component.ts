@@ -1,12 +1,12 @@
 import { MessageService } from 'primeng/api';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { CtdhService } from './../../../services/database/ctdh/ctdh.service';
+import { CtdhService } from './../../../services/database/ctdh.service';
 import { CTDH } from './../../../models/CTDH.model';
 import { UtilService } from './../../../services/util/util.service';
 import { FormGroup } from '@angular/forms';
 import { DonHangTinhTrang } from './../../../models/DonHang.model';
-import { DonHangService } from './../../../services/database/don-hang/don-hang.service';
+import { DonHangService } from './../../../services/database/don-hang.service';
 import { Component, OnInit } from '@angular/core';
 import { DonHang } from 'src/app/models/DonHang.model';
 import { DocumentData } from '@angular/fire/firestore';
@@ -36,14 +36,14 @@ export class DonHangDaNhanComponent implements OnInit {
               private ctdhService: CtdhService,
               private formBuilder: FormBuilder,
               private messageService: MessageService) {
-    UtilService.makeRowsSameHeight();
+    
     this.donHangSubcription = donHangService
       .donHanglistener(DonHangTinhTrang.DA_DAT)
       .subscribe((dsDonHang:DonHang[]) => {
         this.dsDonHang = dsDonHang;
 
         // console.log(this.dsDonHang);
-        UtilService.makeRowsSameHeight();
+        
       });
 
     this.donHangForm = this.formBuilder.group({
@@ -78,14 +78,14 @@ export class DonHangDaNhanComponent implements OnInit {
         this.dsDonHang = dsDonHang;
 
         // console.log(this.dsDonHang);
-        UtilService.makeRowsSameHeight();
+        
       });
     console.log("Tìm theo tình trạng từ")
   }
 
   public chuyenTinhTrang() {
     if (this.dsDonHangChon.length == 0) return;
-    this.donHangService.chuyenTinhTrang(this.dsDonHangChon, this.tinhTrangDen.value)
+    this.donHangService.chuyenTinhTrangAll(this.dsDonHangChon, this.tinhTrangDen.value)
       .then((result) => {
         if (result == true) {
           this.messageService.add(
@@ -98,22 +98,23 @@ export class DonHangDaNhanComponent implements OnInit {
 
         this.tinhTrangTu.reset();
         this.dsDonHangChon = [];
-        UtilService.makeRowsSameHeight();
+
+        
       });
   }
 
   rowCthdClicked() { }
 
   handleOnPage($event) {
-    UtilService.makeRowsSameHeight();
+    
   }
   handleRowSelect($event) {
     console.log($event.data);
   }
-  rowHoaDonClicked($event, value) {
+  rowHoaDonClicked($event, donHang: DonHang) {
     // console.log($event);
     // console.log(value);
-    let ma = value.Ma;
+    let ma = donHang.Ma;
 
     if (this.ctdhSubcription != null) this.ctdhSubcription.unsubscribe();
 
@@ -122,7 +123,7 @@ export class DonHangDaNhanComponent implements OnInit {
       .subscribe((dsCTDH)=> {
         this.dsCtdh = dsCTDH;
         
-        UtilService.makeRowsSameHeight();
+        
     });
   }
 }

@@ -4,7 +4,8 @@ export interface TinTuc {
     DuongDan:string,
     NoiDung:string,
     HinhAnh:string,
-    ThoiGianTao:string,
+    // ThoiGianTao:string,
+    ThoiGianTao:Date
 }
 
 // Firestore data converter
