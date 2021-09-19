@@ -4,9 +4,9 @@ import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MessageService } from 'primeng/api';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
 
 @Component({
   selector: 'app-tin-tuc-them',

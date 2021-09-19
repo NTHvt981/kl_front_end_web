@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Observable, of, from, pipe } from 'rxjs';
-import { AngularFirestore, DocumentChangeAction, CollectionReference, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction, CollectionReference, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 import { TinTuc } from 'src/app/models/TinTuc.model';
 

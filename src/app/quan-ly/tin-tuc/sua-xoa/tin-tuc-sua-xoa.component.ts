@@ -3,12 +3,12 @@ import { UtilService } from './../../../services/util/util.service';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { TinTucService } from '../../../services/database/tin-tuc.service';
 import { TinTuc, TinTucConverter } from './../../../models/TinTuc.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
 
 @Component({
   selector: 'app-tin-tuc-sua-xoa',

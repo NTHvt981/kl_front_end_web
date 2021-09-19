@@ -4,7 +4,7 @@ import { DonHang } from './../../models/DonHang.model';
 import { switchMap, map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { CTDH, CTDHConverter } from './../../models/CTDH.model';
-import { AngularFirestore, DocumentData } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentData } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 import { DonHangService } from './don-hang.service';
 

@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { CTTN } from './../../models/CTTN.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

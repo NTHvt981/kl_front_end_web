@@ -2,7 +2,7 @@ import { switchMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { DonHang, DonHangConverter } from './../../models/DonHang.model';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 
 @Injectable({

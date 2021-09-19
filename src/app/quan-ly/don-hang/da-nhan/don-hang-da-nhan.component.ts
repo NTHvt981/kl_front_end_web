@@ -9,7 +9,7 @@ import { DonHangTinhTrang } from './../../../models/DonHang.model';
 import { DonHangService } from './../../../services/database/don-hang.service';
 import { Component, OnInit } from '@angular/core';
 import { DonHang } from 'src/app/models/DonHang.model';
-import { DocumentData } from '@angular/fire/firestore';
+import { DocumentData } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 
 @Component({

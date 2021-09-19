@@ -1,7 +1,7 @@
 import { map } from 'rxjs/operators';
 import { PKTT } from './../../models/PKTT.model';
 import { Observable } from 'rxjs';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 
 @Injectable({

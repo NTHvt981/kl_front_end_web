@@ -41,10 +41,10 @@ import { TinTucThemComponent } from './quan-ly/tin-tuc/them/tin-tuc-them.compone
 import { TinTucSuaXoaComponent } from './quan-ly/tin-tuc/sua-xoa/tin-tuc-sua-xoa.component';
 
 // For firebase -auth, cloud storage, storage
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 // Services in here
 import { AuthService } from './services/auth/auth.service';

@@ -1,5 +1,5 @@
 import { CTDH } from "./CTDH.model";
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 
 export class DonHang {
     Ma:             string;

@@ -1,13 +1,13 @@
 import { MessageService } from 'primeng/api';
 import { UtilService } from './../../../services/util/util.service';
 import { loaiOptions } from './../../../models/PKTT.model';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { PkttService } from './../../../services/database/pktt.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PKTT } from 'src/app/models/PKTT.model';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
 
 @Component({
   selector: 'app-pktt-them',

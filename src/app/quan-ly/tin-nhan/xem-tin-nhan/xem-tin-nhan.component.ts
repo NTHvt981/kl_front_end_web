@@ -3,7 +3,7 @@ import { CTTN } from './../../../models/CTTN.model';
 import { CttnService } from './../../../services/database/cttn.service';
 import { UtilService } from './../../../services/util/util.service';
 import { MessageService } from 'primeng/api';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TinNhanService } from './../../../services/database/tin-nhan.service';
 import { TinNhan } from './../../../models/TinNhan.model';
 import { Component, OnInit } from '@angular/core';

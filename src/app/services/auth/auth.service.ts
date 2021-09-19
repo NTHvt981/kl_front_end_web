@@ -1,9 +1,9 @@
 import { Observable, of } from 'rxjs';
 import { switchMap } from "rxjs/operators";
 import { NguoiDung, VaiTro } from '../../models/NguoiDung.model';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { error } from '@angular/compiler/src/util';
 
@@ -18,10 +18,10 @@ export class AuthService {
               private firestore: AngularFirestore,
               private router: Router) {
 
-    this.user$ = this.auth.authState.pipe(
+    this.user$ = this.auth.authState.pipe<NguoiDung>(
       switchMap(user => {
         if (user) {
-          return firestore.collection("NguoiDung").doc(user.uid).valueChanges();
+          return firestore.collection<NguoiDung>("NguoiDung").doc(user.uid).valueChanges();
         }
         else
           return of(null);

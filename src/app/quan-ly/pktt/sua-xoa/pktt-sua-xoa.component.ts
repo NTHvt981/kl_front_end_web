@@ -1,5 +1,5 @@
 import { MessageService } from 'primeng/api';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { loaiOptions } from './../../../models/PKTT.model';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
@@ -8,7 +8,7 @@ import { PkttService } from './../../../services/database/pktt.service';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PKTT } from 'src/app/models/PKTT.model';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
 
 @Component({
   selector: 'app-pktt-sua-xoa',

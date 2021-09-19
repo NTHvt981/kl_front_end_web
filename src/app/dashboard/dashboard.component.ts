@@ -1,7 +1,7 @@
 import { loaiOptions } from './../models/PKTT.model';
 import { CtdhService } from './../services/database/ctdh.service';
 import { Observable, timer } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Component, OnInit } from '@angular/core';
 import { ThongTin, getThongTin } from "./../../app/models/ThongTin.model";
 
