@@ -1,11 +1,11 @@
 import { MessageService } from 'primeng/api';
 import { UtilService } from './../../../services/util/util.service';
-import { loaiOptions } from './../../../models/PKTT.model';
+import { loaiOptions, enLoaiOptions } from './../../../models/PKTT.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { PkttService } from './../../../services/database/pktt.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewContainerRef, ViewChild, ElementRef } from '@angular/core';
 import { PKTT } from 'src/app/models/PKTT.model';
 import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
 
@@ -15,10 +15,11 @@ import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
   styleUrls: ['./pktt-them.component.css'],
   providers: [MessageService]
 })
-export class PkttThemComponent implements OnInit {
+export class PkttThemComponent implements OnInit, AfterViewInit {
   public pkttForm: FormGroup;
   public fileHinhAnh: File;
   public loaiOptions = loaiOptions;
+  public enLoaiOptions = enLoaiOptions;
   private urlHinhAnh: string | ArrayBuffer;
 
   constructor(private formBuilder:FormBuilder,
@@ -42,7 +43,7 @@ export class PkttThemComponent implements OnInit {
         Validators.required,
         Validators.min(0)
       ]],
-      moTa: ''
+      moTa: '',
     })
   }
 
@@ -70,6 +71,7 @@ export class PkttThemComponent implements OnInit {
   get gia() {return this.pkttForm.get('gia')}
   get soLuong() {return this.pkttForm.get('soLuong')}
   get moTa() {return this.pkttForm.get('moTa')}
+  get trai() {return this.pkttForm.get('trai')}
   
 
   public async themPktt() { 
@@ -99,22 +101,103 @@ export class PkttThemComponent implements OnInit {
       Mau: this.mau.value,
       MoTa: this.moTa.value,
       Gia: this.gia.value,
-      SoLuong: this.soLuong.value
+      SoLuong: this.soLuong.value,
+
+      //for ar
+      OffsetTrai: this.leftOffset,
+      OffsetPhai: this.rightOffset,
+      OffsetTren: this.topOffset,
+      OffsetDuoi: this.bottomOffset,
     }
     this.pkttService.themPKTT(pktt)
       //Thêm pktt LỖI
       .catch((error) => {
-        this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Thêm phụ kiện thời trang lỗi'});
+        this.messageService.add({severity:'error', summary: 'Message', detail: 'Add fail'});
         console.log(error);
       })
       //Thêm pktt THÀNH CÔNG
       .then(() => {
-        this.messageService.add({severity:'success', summary: 'Thông báo', detail: 'Thêm phụ kiện thời trang thành công'});
-        console.log("Thêm phụ kiện thời trang thành công!");
+        this.messageService.add({severity:'success', summary: 'Message', detail: 'Add success'});
+        console.log("Add success!");
       });
   }
   
   handleOnPage($event) {
     UtilService.makeRowsSameHeight();
+  }
+  
+  
+  // ------------------------------AR section -----------------------------
+  public leftOffset = 0;
+  public rightOffset = 0;
+  public topOffset = 0;
+  public bottomOffset = 0;
+  /** Template reference to the canvas element */
+  @ViewChild('canvasEl') canvasEl: ElementRef;
+  /** Canvas 2d context */
+  ngAfterViewInit(): void {
+    this.canvas = this.canvasEl.nativeElement as HTMLCanvasElement;
+    this.context = this.canvas.getContext('2d');
+    this.context.save();
+  }
+
+  private canvas: HTMLCanvasElement;
+  private context: CanvasRenderingContext2D;
+  /**
+   * Draws something using the context we obtained earlier on
+   */
+  private draw() {
+    if (this.urlHinhAnh != '') {
+      const img = new Image(); //Create a background image
+      const ctx = this.context;
+      const canvas = this.canvas;
+      img.src = this.urlHinhAnh.toString();
+
+      const leftOffset = this.leftOffset;
+      const rightOffset = this.rightOffset;
+      const topOffset = this.topOffset;
+      const bottomOffset = this.bottomOffset;
+
+      img.onload = function() {
+        let height = 0;
+        let width = 0;
+
+        if (img.width > canvas.width) {
+          width = canvas.width;
+          height = width / img.width * img.height;
+        } else {
+          height = canvas.height;
+          width = height / img.height * img.width;
+        }
+
+        //reset
+        ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+
+        ctx.drawImage(img, 
+          0, 0, img.width, img.height, 
+          0, 0, width, height
+          );
+
+        const left = width * leftOffset;
+        const right = width * (1 - rightOffset);
+        const top = height * topOffset;
+        const bottom = height * (1 - bottomOffset);
+
+        ctx.beginPath();
+        ctx.moveTo(left, top);
+        ctx.lineTo(right, top);
+        ctx.lineTo(right, bottom);
+        ctx.lineTo(left, bottom);
+        ctx.lineTo(left, top);
+        ctx.fillStyle = 'red';
+        ctx.stroke(); 
+      }
+    }
+  }
+
+  drawCanvas($event) {
+    this.draw();
   }
 }

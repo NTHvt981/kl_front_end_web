@@ -6,10 +6,10 @@
             <div class="col-md-8">
             <mat-form-field>
                 <input matInput type="text" 
-                placeholder="Tên phụ kiện" 
+                placeholder="Name" 
                 formControlName="ten">
                 <mat-error *ngIf="ten.errors?.required && ten.touched">
-                Tên không được trống
+                Name must not be empty
                 </mat-error>
             </mat-form-field>
             </div>
@@ -17,7 +17,7 @@
             <mat-form-field>
                 <input matInput type="text" 
                 readonly
-                placeholder="Mã phụ kiện" 
+                placeholder="Id" 
                 formControlName="ma">
             </mat-form-field>
             </div>
@@ -25,28 +25,28 @@
         <div class="row">
             <div class="col-md-4">
             <mat-form-field appearance="fill">
-                <mat-label>Loại phụ kiện</mat-label>
+                <mat-label>Type</mat-label>
                 <mat-select formControlName="loai">
-                    <mat-option *ngFor="let loai of loaiOptions" [value]="loai">
+                    <mat-option *ngFor="let loai of enLoaiOptions" [value]="loai">
                     {{loai}}
                     </mat-option>
                 </mat-select>                
                 <mat-error *ngIf="loai.errors?.required && loai.touched">
-                    Loại không được trống
+                    Type must not be empty
                 </mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-4">
                 <mat-form-field>
                     <input matInput type="text" 
-                    placeholder="Màu sắc" 
+                    placeholder="Colors" 
                     formControlName="mau">
                 </mat-form-field>
             </div>
             <div class="col-md-4">
                 <mat-form-field>
                     <input matInput type="text" 
-                    placeholder="Hãng thời trang" 
+                    placeholder="Brand" 
                     formControlName="hang">
                 </mat-form-field>
             </div>
@@ -60,36 +60,37 @@
                     type="number" 
                     min="0"
                     step="1000"
-                    placeholder="Giá thành" 
+                    placeholder="Price" 
                     formControlName="gia">       
                     <mat-error *ngIf="gia.errors?.required && gia.touched">
-                        Giá không được để trống
+                        Price must not be empty
                     </mat-error> 
                     <mat-error *ngIf="gia.errors?.min && gia.touched">
-                        Giá không nhỏ hơn 0
+                        Price must not be negative
                     </mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field>
                     <input matInput type="number" 
-                    placeholder="Số lượng" 
+                    placeholder="Ammount" 
                     min="0"
                     formControlName="soLuong">
                 </mat-form-field>   
                 <mat-error *ngIf="soLuong.errors?.min && soLuong.touched">
-                    số lượng không nhỏ hơn 0
+                    Amount must not be negative
                 </mat-error>
                 <mat-error *ngIf="soLuong.errors?.required && soLuong.touched">
-                    Số lượng không được để trống
+                    Amount must not be empty
                 </mat-error> 
             </div>
 
             <div class="col-md-12">
                 <mat-form-field>
                     <textarea matInput 
-                    placeholder="Mô tả phụ kiện" 
+                    placeholder="Description" 
                     formControlName="moTa" 
+                    rows="8"
                     ></textarea>
                 </mat-form-field>
             </div>
@@ -97,26 +98,71 @@
 
 
             <div class="col-md-4">
-                Hình ảnh
+                Image
                 <p-fileUpload name="myfile[]" 
                 class="inner-white"
                 customUpload="true" 
                 accept="image/*" 
                 [auto]="true"
                 (uploadHandler)="processFile($event)">
-                Hình ảnh
+                Image
                 </p-fileUpload>
-                <img [src]="urlHinhAnh" alt="" id="img-preview" />
             </div>
         </div>
             
         <button mat-raised-button 
                 [disabled]="pkttForm.invalid" color="primary"
-                (click)="suaPktt()">Sửa</button>
+                (click)="suaPktt()">Edit</button>
         <button mat-raised-button 
                 [disabled]="pkttForm.invalid" color="primary"
-                (click)="xoaPktt()">Xóa</button>
+                (click)="xoaPktt()">Delete</button>
         </form>
+
+        <!-- AR Section -->
+        <div class="col-md-12">
+            <h4 style = "margin-top:10px">Information for AR</h4>	
+            <mat-form-field style = "margin-top:10px">
+              <input matInput type="number" placeholder="Left offset" [(ngModel)]="leftOffset" 
+              min="0" max="1">
+            </mat-form-field>	
+            <mat-slider min="0" max="1" step="0.01" thumbLabel tickInterval="25"
+            [(ngModel)]="leftOffset"
+            ></mat-slider>
+        </div>
+        
+        <div class="col-md-12">
+            <mat-form-field style = "margin-top:10px">
+              <input matInput type="number" placeholder="Right offset" [(ngModel)]="rightOffset" 
+              min="0" max="1">
+            </mat-form-field>	
+            <mat-slider min="0" max="1" step="0.01" thumbLabel tickInterval="25"
+            [(ngModel)]="rightOffset"
+            ></mat-slider>
+        </div>
+        
+        <div class="col-md-12">
+            <mat-form-field style = "margin-top:10px">
+              <input matInput type="number" placeholder="Top offset" [(ngModel)]="topOffset" 
+              min="0" max="1">
+            </mat-form-field>		
+            <mat-slider min="0" max="1" step="0.01" thumbLabel tickInterval="25"
+            [(ngModel)]="topOffset"
+            ></mat-slider>
+        </div>
+        
+        <div class="col-md-12">
+            <mat-form-field style = "margin-top:10px">
+              <input matInput type="number" placeholder="Bottom offset" [(ngModel)]="bottomOffset" 
+              min="0" max="1">
+            </mat-form-field>		
+            <mat-slider min="0" max="1" step="0.01" thumbLabel tickInterval="25"
+            [(ngModel)]="bottomOffset"
+            ></mat-slider>
+        </div>
+        <button (click)="drawCanvas($event)">Reset preview</button>
+        <div class="col-md-12">
+            <canvas #canvasEl width='500px' height='500px'> </canvas>
+        </div>
     </div>
 
     <!-- bảng liệt kê danh sách pktt trong database -->
@@ -141,12 +187,12 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 50px;"></th>
-                <th>Tên</th>
-                <th>Loại</th>
-                <th>Hình ảnh</th>
-                <th>Hãng</th>
-                <th>Màu</th>
-                <th>Giá</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Image</th>
+                <th>Brand</th>
+                <th>Colors</th>
+                <th>Price</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-pktt>

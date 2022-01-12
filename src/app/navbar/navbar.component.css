@@ -1,5 +1,5 @@
 nav {
-    background-color: #0000C9;
+    background-color: #5532f4;
   }
   
 .no-padding {
@@ -19,7 +19,7 @@ nav {
 }
 
 .nav-item:hover a {
-  color: #0000C9;
+  color: #5532f4;
 }
 
 .chuyen-khoan-noi-bo-navbar {
@@ -28,5 +28,5 @@ nav {
 
 .chuyen-khoan-noi-bo-navbar span {
   margin: 8px 8px;
-  color: #0000C9;
+  color: #5532f4;
 }

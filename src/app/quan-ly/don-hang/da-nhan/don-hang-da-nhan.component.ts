@@ -38,7 +38,7 @@ export class DonHangDaNhanComponent implements OnInit {
               private messageService: MessageService) {
     
     this.donHangSubcription = donHangService
-      .donHanglistener(DonHangTinhTrang.DA_DAT)
+      .donHanglistener(DonHangTinhTrang.INIT)
       .subscribe((dsDonHang:DonHang[]) => {
         this.dsDonHang = dsDonHang;
 
@@ -47,18 +47,17 @@ export class DonHangDaNhanComponent implements OnInit {
       });
 
     this.donHangForm = this.formBuilder.group({
-      tinhTrangTu: DonHangTinhTrang.DA_DAT,
+      tinhTrangTu: DonHangTinhTrang.INIT,
       tinhTrangDen: ['', [
         Validators.required,
       ]]
     });
 
     this.tinhTrangOptions = [
-      DonHangTinhTrang.DA_DAT,
-      DonHangTinhTrang.DA_TIEP_NHAN,
-      DonHangTinhTrang.DANG_VAN_CHUYEN,
-      DonHangTinhTrang.GIAO_THANH_CONG,
-      DonHangTinhTrang.DA_HUY
+      DonHangTinhTrang.INIT,
+      DonHangTinhTrang.DELIVERY,
+      DonHangTinhTrang.SUCCESS,
+      DonHangTinhTrang.CANCELED
     ];
   }
 
@@ -89,11 +88,11 @@ export class DonHangDaNhanComponent implements OnInit {
       .then((result) => {
         if (result == true) {
           this.messageService.add(
-            {severity:'success', summary: 'Thông báo', detail: 'Chuyển đơn hàng thành công'}
+            {severity:'success', summary: 'Thông báo', detail: 'Change status successful'}
             );
         }
         else {
-          this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Chuyển đơn hàng lỗi'});
+          this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Change status fail'});
         }
 
         this.tinhTrangTu.reset();

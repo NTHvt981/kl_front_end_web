@@ -1,5 +1,5 @@
 <div class="container w-50 m-v-padding">
-    <h1>Thêm tin tức</h1>
+    <h1>Add news</h1>
     <!-- {{tinTucForm.value | json}} -->
 
     <form [formGroup]="tinTucForm"
@@ -7,18 +7,18 @@
         (ngSubmit)="themTinTuc()">
 
         <mat-form-field>
-            <input matInput type="text" placeholder="Tiêu đề" formControlName="tieuDe">
+            <input matInput type="text" placeholder="Title" formControlName="tieuDe">
             <mat-error *ngIf="tieuDe.errors?.required && tieuDe.touched">
-            Tiêu đề không được trống
+            Title must not be empty
             </mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput type="text" placeholder="Đường dẫn" formControlName="duongDan">
+            <input matInput type="text" placeholder="Link" formControlName="duongDan">
             <mat-error *ngIf="duongDan.errors?.required && duongDan.touched">
-            Đường dẫn không được trống
+            Website url must not be empty
             </mat-error>
         </mat-form-field>
-        <h3>Hình ảnh</h3>
+        <h3>Image</h3>
         <p-fileUpload name="myfile[]" 
         class="inner-white"
         customUpload="true" 
@@ -27,8 +27,9 @@
         (uploadHandler)="processFile($event)"></p-fileUpload>
         <mat-form-field>
             <textarea matInput 
-            placeholder="Nội dung" 
+            placeholder="Subtitle" 
             formControlName="noiDung" 
+            rows="8"
             ></textarea>
         </mat-form-field>
 
@@ -36,7 +37,7 @@
 
         <button mat-raised-button 
                 [disabled]="tinTucForm.invalid" 
-                color="primary">Thêm</button>
+                color="primary">Confirm</button>
     </form>
 
     <p-toast></p-toast>

@@ -1,3 +1,8 @@
-table {
-    width: 100%;
+.image-section {
+    background: image('../../images/bg.jpg');
+    background-size: cover;
+}
+
+.text-section {
+    background: #666666;
 }

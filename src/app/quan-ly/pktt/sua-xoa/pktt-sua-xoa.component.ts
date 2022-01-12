@@ -1,12 +1,12 @@
 import { MessageService } from 'primeng/api';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { loaiOptions } from './../../../models/PKTT.model';
+import { enLoaiOptions, loaiOptions } from './../../../models/PKTT.model';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { UtilService } from './../../../services/util/util.service';
 import { PkttService } from './../../../services/database/pktt.service';
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PKTT } from 'src/app/models/PKTT.model';
 import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
 
@@ -16,11 +16,12 @@ import { UploadTaskSnapshot } from '@angular/fire/compat/storage/interfaces';
   styleUrls: ['./pktt-sua-xoa.component.css'],
   providers: [MessageService]
 })
-export class PkttSuaXoaComponent implements OnInit {
+export class PkttSuaXoaComponent implements OnInit, AfterViewInit {
   public pkttForm: FormGroup;
   public dsPktt: PKTT[];
   public pkttChon: PKTT;
   public loaiOptions = loaiOptions;
+  public enLoaiOptions = enLoaiOptions;
   public fileHinhAnh: File;
   public urlHinhAnh: string | ArrayBuffer;
   public oldUrlHinhAnh: string | ArrayBuffer;
@@ -77,37 +78,44 @@ export class PkttSuaXoaComponent implements OnInit {
     });
 
     this.urlHinhAnh = this.pkttChon.Hinh;
+    
+    //ar
+    this.leftOffset = this.pkttChon.OffsetTrai;
+    this.rightOffset = this.pkttChon.OffsetPhai;
+    this.topOffset = this.pkttChon.OffsetTren;
+    this.bottomOffset = this.pkttChon.OffsetDuoi;
+    this.draw();
   }
 
-  public processFile(imageInput) {
+  public async processFile(imageInput) {
     console.log(imageInput);
 
     this.fileHinhAnh = imageInput.files[0];
 
-    const reader = new FileReader();
+    // const reader = new FileReader();
   
-    reader.onload = ((e) => {
-      this.urlHinhAnh = e.target['result'];
+    // reader.onload = ((e) => {
+    //   this.urlHinhAnh = e.target['result'];
+    // });
+  
+    // reader.readAsDataURL(this.fileHinhAnh);
+    
+    const name: string = Date.now().toString();
+    const path = "PhuKienThoiTrang/" + name;
+    await this.storage.upload(path, this.fileHinhAnh).then(async (snapShot: UploadTaskSnapshot)=> {
+      console.log("Upload file hình thành công");
+
+      await snapShot.ref.getDownloadURL().then((url)=>{
+        this.urlHinhAnh = url;
+      })
     });
-  
-    reader.readAsDataURL(this.fileHinhAnh);
   }
 
   public async suaPktt() {
-    const name: string = Date.now().toString();
-    const path = "PhuKienThoiTrang/" + name;
 
     // upload file to storage
     if (this.fileHinhAnh != undefined)
     {
-      await this.storage.upload(path, this.fileHinhAnh)
-                  .then(async (snapShot: UploadTaskSnapshot)=> {
-        console.log("Upload file hình thành công");
-  
-        await snapShot.ref.getDownloadURL().then((url)=>{
-          this.urlHinhAnh = url;
-        })
-      });
     }
 
     // thêm tin tức vào firestore
@@ -120,18 +128,24 @@ export class PkttSuaXoaComponent implements OnInit {
       Mau: this.mau.value,
       MoTa: this.moTa.value,
       Gia: this.gia.value,
-      SoLuong: this.soLuong.value
+      SoLuong: this.soLuong.value,
+
+      //ar
+      OffsetTrai: this.leftOffset,
+      OffsetPhai: this.rightOffset,
+      OffsetTren: this.topOffset,
+      OffsetDuoi: this.bottomOffset,
     }
 
     this.pkttService.suaPKTT(pktt)
       //Sửa pktt LỖI
       .catch((error) => {
-        this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Sửa phụ kiện thời trang lỗi'});
+        this.messageService.add({severity:'error', summary: 'Message', detail: 'Edit fail'});
         console.log(error);
       })
       //Sửa pktt THÀNH CÔNG
       .then(() => {
-        this.messageService.add({severity:'success', summary: 'Thông báo', detail: 'Sửa phụ kiện thời trang thành công'});
+        this.messageService.add({severity:'success', summary: 'Message', detail: 'Edit success'});
         console.log("Sửa phụ kiện thời trang thành công!");
       });
   }
@@ -140,12 +154,12 @@ export class PkttSuaXoaComponent implements OnInit {
     this.pkttService.xoaPKTT(this.ma.value)
       //Xóa pktt LỖI
       .catch((error) => {
-        this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Xóa phụ kiện thời trang lỗi'});
+        this.messageService.add({severity:'error', summary: 'Message', detail: 'Delete fail'});
         console.log(error);
       })
       //Xóa pktt THÀNH CÔNG
       .then(() => {
-        this.messageService.add({severity:'success', summary: 'Thông báo', detail: 'Xóa phụ kiện thời trang thành công'});
+        this.messageService.add({severity:'success', summary: 'Message', detail: 'Delete success'});
         console.log("Xóa phụ kiện thời trang thành công!");
 
         this.urlHinhAnh = null;
@@ -155,5 +169,82 @@ export class PkttSuaXoaComponent implements OnInit {
   
   handleOnPage($event) {
     UtilService.makeRowsSameHeight();
+  }
+
+  // ------------------------------AR section -----------------------------
+  public leftOffset = 0;
+  public rightOffset = 0;
+  public topOffset = 0;
+  public bottomOffset = 0;
+  /** Template reference to the canvas element */
+  @ViewChild('canvasEl') canvasEl: ElementRef;
+  /** Canvas 2d context */
+  ngAfterViewInit(): void {
+    this.canvas = this.canvasEl.nativeElement as HTMLCanvasElement;
+    this.context = this.canvas.getContext('2d');
+    this.context.save();
+  }
+
+  private canvas: HTMLCanvasElement;
+  private context: CanvasRenderingContext2D;
+  /**
+   * Draws something using the context we obtained earlier on
+   */
+  private draw() {
+    if (this.urlHinhAnh != '') {
+      const img = new Image(); //Create a background image
+      const ctx = this.context;
+      const canvas = this.canvas;
+      img.src = this.urlHinhAnh.toString();
+
+      const leftOffset = this.leftOffset;
+      const rightOffset = this.rightOffset;
+      const topOffset = this.topOffset;
+      const bottomOffset = this.bottomOffset;
+
+      img.onload = function() {
+        let height = 0;
+        let width = 0;
+
+        if (img.width > canvas.width) {
+          width = canvas.width;
+          height = width / img.width * img.height;
+        } else {
+          height = canvas.height;
+          width = height / img.height * img.width;
+        }
+
+        //reset
+        ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+
+        //draw pktt image
+        ctx.drawImage(img, 
+          0, 0, img.width, img.height, 
+          0, 0, width, height
+          );
+        
+        //calculate offset
+        const left = width * leftOffset;
+        const right = width * (1 - rightOffset);
+        const top = height * topOffset;
+        const bottom = height * (1 - bottomOffset);
+        
+        //Draw offset line
+        ctx.beginPath();
+        ctx.moveTo(left, top);
+        ctx.lineTo(right, top);
+        ctx.lineTo(right, bottom);
+        ctx.lineTo(left, bottom);
+        ctx.lineTo(left, top);
+        ctx.fillStyle = 'red';
+        ctx.stroke(); 
+      }
+    }
+  }
+
+  drawCanvas($event) {
+    this.draw();
   }
 }

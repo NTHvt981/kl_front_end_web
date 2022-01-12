@@ -103,22 +103,22 @@ export class TinTucSuaXoaComponent implements OnInit {
     }
     this.tinTucService.suaTinTuc(tinTucMoi)
       .catch((error) => {
-        this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Sửa tin tức lỗi'});
+        this.messageService.add({severity:'error', summary: 'Message', detail: 'Edit fail'});
         console.log(error);
       })
       .then(() => {
-        this.messageService.add({severity:'success', summary: 'Thông báo', detail: 'Sửa tin tức thành công'});
+        this.messageService.add({severity:'success', summary: 'Message', detail: 'Edit success'});
         console.log("Sửa tin tức thành công!");
       });
   }
   public xoaTinTuc() {
     this.tinTucService.xoaTinTuc(this.ma.value)
       .catch((error) => {
-        this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Xóa tin tức lỗi'});
+        this.messageService.add({severity:'error', summary: 'Message', detail: 'Delete fail'});
         console.log(error);
       })
       .then(() => {
-        this.messageService.add({severity:'success', summary: 'Thông báo', detail: 'Xóa tin tức thành công'});
+        this.messageService.add({severity:'success', summary: 'Message', detail: 'Delete success'});
         console.log("Xóa tin tức thành công!");
         
         this.urlHinhAnh = null;

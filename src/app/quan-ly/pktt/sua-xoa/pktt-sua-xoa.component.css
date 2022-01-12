@@ -28,8 +28,21 @@ td.td-hinh img {
     width: auto; 
 }
 
-
 #img-preview {
     padding: 10px;
     width: 100%;
+}
+
+/* ar */
+mat-slider {
+    width: 100%;
+}
+canvas {
+    border: 2px solid rgba(0,0,0,0.12);
+    transition: 300ms;
+    border-radius: 4px;
+  }
+  
+canvas:hover {
+  border: 3px solid rgba(255,0,0,1);
 }

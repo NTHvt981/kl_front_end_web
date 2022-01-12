@@ -10,6 +10,8 @@ export class DonHang {
     ThoiGianDatHang: firebase.default.firestore.Timestamp;
     TinhTrang:    string;
     TongCong:    number;
+    // GiamGia:    number;
+    // SauGiamGia:    number;
     ChiTietDonHangs: CTDH[];
 }
 
@@ -46,9 +48,8 @@ export const DonHangConverter = {
 }
 
 export const DonHangTinhTrang = {
-    DA_HUY : "Đã huỷ",
-    DA_DAT : "Đặt hàng thành công",
-    DA_TIEP_NHAN : "Đã tiếp nhận đơn hàng",
-    DANG_VAN_CHUYEN : "Đang vận chuyển",
-    GIAO_THANH_CONG : "Giao hàng thành công",
+    INIT: 'Taking order',
+    DELIVERY: 'Delivery',
+    SUCCESS: 'Finish',
+    CANCELED: 'Cancel',
 };

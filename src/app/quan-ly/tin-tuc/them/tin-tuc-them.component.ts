@@ -64,7 +64,7 @@ export class TinTucThemComponent implements OnInit {
     {
       await this.storage.upload(path, this.fileHinhAnh)
                   .then(async (snapShot: UploadTaskSnapshot)=> {
-        console.log("Upload file hình thành công");
+        console.log("Upload image file success");
   
         await snapShot.ref.getDownloadURL().then((url)=>{
           this.urlHinhAnh = url;
@@ -84,12 +84,12 @@ export class TinTucThemComponent implements OnInit {
     await this.tinTucService.themTinTuc(tinTuc)
       //Thêm tin tức LỖI
       .catch((error) => {
-        this.messageService.add({severity:'error', summary: 'Thông báo', detail: 'Thêm tin tức lỗi'});
+        this.messageService.add({severity:'error', summary: 'Message', detail: 'Add fail'});
         console.log(error);
       })
       //Thêm tin tức THÀNH CÔNG
       .then(() => {
-        this.messageService.add({severity:'success', summary: 'Thông báo', detail: 'Thêm tin tức thành công'});
+        this.messageService.add({severity:'success', summary: 'Message', detail: 'Add success'});
         console.log("Thêm tin tức thành công!");
       });
 

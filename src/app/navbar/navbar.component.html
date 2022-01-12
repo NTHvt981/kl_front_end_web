@@ -6,29 +6,25 @@
       <span class="navbar-toggler-icon"> <i class="fa fa-toggle-right"></i> </span></button>
   <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
   <ul class="navbar-nav">
-
     <li class="nav-item">
-      <a class="nav-link" href="">Trang chủ</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/dang-ky" class="nav-link">Đăng ký</a>
+      <a routerLink="/dang-ky" class="nav-link">Sign up</a>
     </li>
     <ng-template [ngIf]="!isLogIn">
     <li class="nav-item">
-      <a routerLink="/dang-nhap" class="nav-link">Đăng nhập</a>
+      <a routerLink="/dang-nhap" class="nav-link">Sign in</a>
     </li>
     </ng-template>
 
     <ng-template [ngIf]="isLogIn">
     <li class="nav-item">
-      <a routerLink="/them-quan-tri" class="nav-link">Thêm admin</a>
+      <a routerLink="/them-quan-tri" class="nav-link">Add admin</a>
     </li>
     </ng-template>
     <ng-template [ngIf]="isLogIn">
       <li class="nav-item">
         <a routerLink="/" 
         class="nav-link"
-        (click)="dangXuat()">Đăng xuất</a>
+        (click)="dangXuat()">Sign out</a>
       </li>
     </ng-template>
     <!-- Dropdown -->
@@ -40,11 +36,11 @@
         data-toggle="dropdown" 
         aria-haspopup="true" 
         aria-expanded="false">
-        Phụ kiện thời trang
+        Accessories
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-        <a class="dropdown-item" routerLink="pktt/them">Thêm</a>
-        <a class="dropdown-item" routerLink="pktt/sua-xoa">Sửa-xóa</a>
+        <a class="dropdown-item" routerLink="pktt/them">Add</a>
+        <a class="dropdown-item" routerLink="pktt/sua-xoa">Edit</a>
       </div>
     </li>
     
@@ -56,25 +52,25 @@
         data-toggle="dropdown" 
         aria-haspopup="true" 
         aria-expanded="false">
-        Tin tức
+        News
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-        <a class="dropdown-item" routerLink="tin-tuc/them">Thêm</a>
-        <a class="dropdown-item" routerLink="tin-tuc/sua-xoa">Sửa-Xóa</a>
+        <a class="dropdown-item" routerLink="tin-tuc/them">Add</a>
+        <a class="dropdown-item" routerLink="tin-tuc/sua-xoa">Edit</a>
       </div>
     </li>
     
     <li class="nav-item">
-      <a class="nav-link" routerLink="don-hang">Quản lý đơn hàng</a>
+      <a class="nav-link" routerLink="don-hang">Order management</a>
     </li>
     
   
     <!-- Dropdown -->
+    <!-- <li class="nav-item">
+      <a class="nav-link" routerLink="tin-nhan/them">Message client</a>
+    </li> -->
     <li class="nav-item">
-      <a class="nav-link" routerLink="tin-nhan/them">Tạo thông báo mới</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="tin-nhan/sua-xoa">Xem tin nhắn</a>
+      <a class="nav-link" routerLink="tin-nhan/sua-xoa">Chat</a>
     </li>
     </ng-template>
   </ul>

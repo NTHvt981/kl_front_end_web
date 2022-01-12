@@ -5,14 +5,14 @@
             <div class="row">
                 <div class="col-md-4">
                 <mat-form-field>
-                    <input matInput type="text" placeholder="Mã" formControlName="ma" readonly>
+                    <input matInput type="text" placeholder="Id" formControlName="ma" readonly>
                 </mat-form-field>
                 </div>
                 <div class="col-md-8">
                 <mat-form-field>
-                    <input matInput type="text" placeholder="Tiêu đề" formControlName="tieuDe">
+                    <input matInput type="text" placeholder="Title" formControlName="tieuDe">
                     <mat-error *ngIf="tieuDe.errors?.required && tieuDe.touched">
-                    Tiêu đề không được trống
+                        Title must not be empty
                     </mat-error>
                 </mat-form-field>
                 </div>
@@ -21,9 +21,9 @@
             <br>
     
             <mat-form-field>
-                <input matInput type="text" placeholder="Đường dẫn" formControlName="duongDan">
+                <input matInput type="text" placeholder="Link" formControlName="duongDan">
                 <mat-error *ngIf="duongDan.errors?.required && duongDan.touched">
-                Đường dẫn không được trống
+                    Website url must not be empty
                 </mat-error>
             </mat-form-field>
     
@@ -40,8 +40,9 @@
                 <mat-form-field>
                     <textarea matInput 
                     id="fm-noi-dung"
-                    placeholder="Nội dung" 
+                    placeholder="Subtitle" 
                     formControlName="noiDung" 
+                    rows="8"
                     ></textarea>
                 </mat-form-field>
             </div>
@@ -49,10 +50,10 @@
             
             <button mat-raised-button 
                     [disabled]="tinTucForm.invalid" color="primary"
-                    (click)="suaTinTuc()">Sửa</button>
+                    (click)="suaTinTuc()">Edit</button>
             <button mat-raised-button 
                     [disabled]="tinTucForm.invalid" color="primary"
-                    (click)="xoaTinTuc()">Xóa</button>
+                    (click)="xoaTinTuc()">Delete</button>
         </form>
     </div>
 
@@ -66,11 +67,11 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3em"></th>
-                <th id="thMa">Mã</th>
-                <th id="thTieuDe">Tiêu đề</th>
-                <th id="thDuongDan">Đường dẫn</th>
-                <th id="thNoiDung">Nội dung</th>
-                <th id="thHinhAnh">Hình ảnh</th>
+                <th id="thMa">Id</th>
+                <th id="thTieuDe">Title</th>
+                <th id="thDuongDan">Link</th>
+                <th id="thNoiDung">Subtitle</th>
+                <th id="thHinhAnh">Thumbnail</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-tinTuc>
