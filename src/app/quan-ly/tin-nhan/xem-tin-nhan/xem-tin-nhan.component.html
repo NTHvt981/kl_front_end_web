@@ -11,7 +11,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3em"></th>
-                    <!-- <th id="thMa">Email</th> -->
+                    <th id="thMa">Email</th>
                     <th id="thTieuDe">Title</th>
                     <th id="thNoiDung">Status</th>
                 </tr>
@@ -23,7 +23,7 @@
                         (click)="rowClicked()"
                         [value]="tinNhan"></p-tableRadioButton>
                     </td>
-                    <!-- <td>{{tinNhan.TenNguoiTao}}</td> -->
+                    <td>{{tinNhan.TenNguoiTao}}</td>
                     <td>{{tinNhan.TieuDe}}</td>
                     <td>
                         <div *ngIf="tinNhan.KetThuc; else elseBlock">
