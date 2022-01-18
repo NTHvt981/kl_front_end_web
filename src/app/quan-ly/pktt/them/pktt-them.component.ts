@@ -1,6 +1,6 @@
 import { MessageService } from 'primeng/api';
 import { UtilService } from './../../../services/util/util.service';
-import { loaiOptions, enLoaiOptions } from './../../../models/PKTT.model';
+import { loaiOptions, phanLoaiOptions } from './../../../models/PKTT.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { PkttService } from './../../../services/database/pktt.service';
 import { Validators } from '@angular/forms';
@@ -19,7 +19,7 @@ export class PkttThemComponent implements OnInit, AfterViewInit {
   public pkttForm: FormGroup;
   public fileHinhAnh: File;
   public loaiOptions = loaiOptions;
-  public enLoaiOptions = enLoaiOptions;
+  public phanLoaiOptions = phanLoaiOptions;
   private urlHinhAnh: string | ArrayBuffer;
 
   constructor(private formBuilder:FormBuilder,
@@ -33,6 +33,7 @@ export class PkttThemComponent implements OnInit, AfterViewInit {
       loai: ['',[
         Validators.required
       ]],
+      phanLoai: ['',[Validators.required]],
       mau: '',
       hang: '',
       gia: [0, [
@@ -66,6 +67,7 @@ export class PkttThemComponent implements OnInit, AfterViewInit {
 
   get ten() {return this.pkttForm.get('ten')}
   get loai() {return this.pkttForm.get('loai')}
+  get phanLoai() {return this.pkttForm.get('phanLoai')}
   get mau() {return this.pkttForm.get('mau')}
   get hang() {return this.pkttForm.get('hang')}
   get gia() {return this.pkttForm.get('gia')}
@@ -96,6 +98,7 @@ export class PkttThemComponent implements OnInit, AfterViewInit {
       Ma: null,
       Ten: this.ten.value,
       Loai: this.loai.value,
+      PhanLoai: this.phanLoai.value,
       Hinh: this.urlHinhAnh as string,
       Hang: this.hang.value,
       Mau: this.mau.value,

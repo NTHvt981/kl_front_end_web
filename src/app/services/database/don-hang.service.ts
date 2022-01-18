@@ -1,9 +1,11 @@
 import { switchMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { DonHang, DonHangConverter } from './../../models/DonHang.model';
+import { DonHang } from './../../models/DonHang.model';
+import { Token } from './../../models/Token.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
+import * as firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +57,14 @@ export class DonHangService {
 
     dsDonHang.forEach(async donHang => {
       await this.firestore.collection("DonHang").doc(donHang.Ma).update({
-        "TinhTrang": tinhTrangDen
+        "TinhTrang": tinhTrangDen,
+        "ThoiGianCapNhat": firebase.default.firestore.Timestamp.now()
       })
       .catch((error)=> {
         result = false;
         console.log(error);
       })
-      .then(()=>{console.log("Chuyển trạng thái thành công")})
+      .then(()=>{console.log("Chuyển trạng thái thành công")});
     });
 
     return result;

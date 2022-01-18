@@ -1,8 +1,11 @@
 #thMa, #thLoai {
     width: 150px
 }
-#thHinh, #thMau, #thTen {
+#thHinh, #thTen {
     width: 200px
+}
+#thMau {
+    width: 100px;
 }
 #thGia, #thSL {
     width: 120px

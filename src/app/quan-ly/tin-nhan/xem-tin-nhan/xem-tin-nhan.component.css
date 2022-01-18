@@ -13,24 +13,25 @@ ul{
     font-family: Helvetica, Arial, sans-serif;
   }
   
-  .him{
+  .him-chat{
     background: #eee;
+  }
+
+  .on-left {
     float: left;
   }
-  
-  .me{
+
+  .on-right {
     float: right;
+  }
+  
+  .me-chat{
     background: #0084ff;
     color: #fff;
   }
   
-  .him + .me{
-    border-bottom-right-radius: 5px;
-  }
-  
-  .me + .me{
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+  .him-chat + .me-chat{
+    border-radius: 100%;
   }
   
   .me:last-of-type {

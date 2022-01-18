@@ -1,6 +1,6 @@
 import { MessageService } from 'primeng/api';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { enLoaiOptions, loaiOptions } from './../../../models/PKTT.model';
+import { loaiOptions, phanLoaiOptions } from './../../../models/PKTT.model';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { UtilService } from './../../../services/util/util.service';
@@ -21,7 +21,7 @@ export class PkttSuaXoaComponent implements OnInit, AfterViewInit {
   public dsPktt: PKTT[];
   public pkttChon: PKTT;
   public loaiOptions = loaiOptions;
-  public enLoaiOptions = enLoaiOptions;
+  public phanLoaiOptions = phanLoaiOptions;
   public fileHinhAnh: File;
   public urlHinhAnh: string | ArrayBuffer;
   public oldUrlHinhAnh: string | ArrayBuffer;
@@ -39,6 +39,7 @@ export class PkttSuaXoaComponent implements OnInit, AfterViewInit {
       ma: ['',[Validators.required]],
       ten: ['',[Validators.required]],
       loai: ['',[Validators.required]],
+      phanLoai: ['',[Validators.required]],
       mau: '',
       hang: '',
       gia: [0, [
@@ -54,9 +55,14 @@ export class PkttSuaXoaComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
+  onSetLoai($event) {
+    // plOptions = phanLoaiOptions.get(this.loai.value);
+  }
+
   get ma() {return this.pkttForm.get('ma')}
   get ten() {return this.pkttForm.get('ten')}
   get loai() {return this.pkttForm.get('loai')}
+  get phanLoai() {return this.pkttForm.get('phanLoai')}
   get mau() {return this.pkttForm.get('mau')}
   get hang() {return this.pkttForm.get('hang')}
   get gia() {return this.pkttForm.get('gia')}
@@ -70,6 +76,7 @@ export class PkttSuaXoaComponent implements OnInit, AfterViewInit {
       "ma": this.pkttChon.Ma,
       "ten": this.pkttChon.Ten,
       "loai": this.pkttChon.Loai,
+      "phanLoai": this.pkttChon.PhanLoai,
       "mau": this.pkttChon.Mau,
       "hang": this.pkttChon.Hang,
       "gia": this.pkttChon.Gia,
@@ -91,14 +98,6 @@ export class PkttSuaXoaComponent implements OnInit, AfterViewInit {
     console.log(imageInput);
 
     this.fileHinhAnh = imageInput.files[0];
-
-    // const reader = new FileReader();
-  
-    // reader.onload = ((e) => {
-    //   this.urlHinhAnh = e.target['result'];
-    // });
-  
-    // reader.readAsDataURL(this.fileHinhAnh);
     
     const name: string = Date.now().toString();
     const path = "PhuKienThoiTrang/" + name;
@@ -129,6 +128,7 @@ export class PkttSuaXoaComponent implements OnInit, AfterViewInit {
       MoTa: this.moTa.value,
       Gia: this.gia.value,
       SoLuong: this.soLuong.value,
+      PhanLoai: this.phanLoai.value,
 
       //ar
       OffsetTrai: this.leftOffset,

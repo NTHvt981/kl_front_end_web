@@ -13,7 +13,6 @@
                     <th style="width: 3em"></th>
                     <th id="thMa">Email</th>
                     <th id="thTieuDe">Title</th>
-                    <th id="thNoiDung">Status</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-tinNhan>
@@ -25,11 +24,6 @@
                     </td>
                     <td>{{tinNhan.TenNguoiTao}}</td>
                     <td>{{tinNhan.TieuDe}}</td>
-                    <td>
-                        <div *ngIf="tinNhan.KetThuc; else elseBlock">
-                            Closed.</div>
-                        <ng-template #elseBlock>Open.</ng-template>
-                    </td>
                 </tr>
             </ng-template>
         </p-table>
@@ -42,14 +36,28 @@
             <ng-template ngFor let-cttn [ngForOf]="dsCTTN" let-i="index">
                 <div *ngIf="cttn.TenNguoiTao != 'Quản trị'; then thenBlock else elseBlock"></div>
                 <ng-template #thenBlock>
-                    <li class="him">
+                    <li class="him-chat on-left">
                         {{cttn.NoiDung}}
                     </li>
+
+                    <div *ngIf="cttn.HinhAnh != ''; then himImg"></div>
+                    <ng-template #himImg>
+                        <li class="on-left">
+                        <img width="50%" src="{{cttn.HinhAnh}}" alt="">
+                        </li>
+                    </ng-template>
                 </ng-template>
                 <ng-template #elseBlock>
-                    <li class="me">
+                    <li class="me-chat on-right">
                         {{cttn.NoiDung}}
                     </li>
+
+                    <div *ngIf="cttn.HinhAnh != ''; then meImg"></div>
+                    <ng-template #meImg>
+                        <li class="on-right">
+                        <img width="50%" src="{{cttn.HinhAnh}}" alt="">
+                        </li>
+                    </ng-template>
                 </ng-template>
             </ng-template>
         </ul>

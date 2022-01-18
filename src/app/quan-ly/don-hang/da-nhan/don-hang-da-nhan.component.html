@@ -45,6 +45,8 @@
     </form>
     </div>
 
+    <b>A</b>: Select orders to change state <br>
+    <b>B</b>: Select order to inspect that order details
     <p-table #donHangTable [value]="dsDonHang" 
         [(selection)]="dsDonHangChon" 
         selectionMode="multiple"
@@ -54,45 +56,24 @@
         frozenWidth="50px"
         
         (onPage)="handleOnPage($event)">
-        <ng-template pTemplate="colgroup">
-            <colgroup>
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <!-- <col />
-                <col /> -->
-            </colgroup>
-        </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 50px">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                
-                <th style="width: 50px;"></th>
-
+                <th style="width: 50px">A</th>
+                <th style="width: 50px;">B</th>
                 <th>Id</th>
-                <th>Customer id</th>
                 <th>Customer name</th>
                 <th>Customer phone number</th>
                 <th>Delivery address</th>
                 <th>Create date</th>
                 <th>Status</th>
+                <th>Initial</th>
+                <th>Discount</th>
                 <th>Total</th>
-                <!-- <th>Discount</th>
-                <th>After discount</th> -->
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-donHang let-rowIndex="rowIndex">
             <tr class="inner-align-top" >
-                <td style="width: 50px;">
+                <td style="width: 50px; vertical-align: middle;">
                     <p-tableCheckbox (onRowSelect) = "handleRowSelect($event)"
                      [value]="donHang"></p-tableCheckbox>
                 </td>
@@ -107,15 +88,14 @@
                 </td>
 
                 <td class="td-ma word-break">{{donHang.Ma}}</td>
-                <td class="td-ma-kh word-break">{{donHang.MaKhachHang}}</td>
                 <td class="td-ten-kh">{{donHang.TenKhachHang}}</td>
                 <td class="td-sdt">{{donHang.SoDienThoai}}</td>
                 <td class="td-dia-chi">{{donHang.DiaChi}}</td>
-                <td class="td-tgdh word-break">{{donHang.ThoiGianDatHang.updatedAt * 1000 | date:'MM-dd-yyyy'}}</td>
+                <td class="td-tgdh word-break">{{donHang.ThoiGianDatHang.seconds*1000 | date:'dd-MM-yyyy'}}</td>
                 <td class="">{{donHang.TinhTrang}}</td>
                 <td class="">{{donHang.TongCong|currency:'VND':'symbol'}}</td>
-                <!-- <td class="">{{donHang.TongCong|currency:'VND':'symbol'}}</td>
-                <td class="">{{donHang.TongCong|currency:'VND':'symbol'}}</td> -->
+                <td class="">{{donHang.KhuyenMai|currency:'VND':'symbol'}}</td>
+                <td class="">{{donHang.TongCong - donHang.KhuyenMai|currency:'VND':'symbol'}}</td>
             </tr>
         </ng-template>
 
@@ -138,40 +118,28 @@
     [rows]="10"
     (onPage)="handleOnPage($event)"
     >
-    <ng-template pTemplate="colgroup">
-        <colgroup>
-            <!-- <col style="width: 5%;"> -->
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-        </colgroup>
-    </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <!-- <th></th> -->
-            <th>Detail Id</th>
-            <th>Order Id</th>
-            <th>Customer Id</th>
-
+            <th>Item Id</th>
             <th>Name</th>
             <th>Image</th>
+            <th>Size</th>
             <th>Price</th>
+            <th>Amount</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ctdh>
         <tr class="inner-align-top">
-            <td class="word-break">{{ctdh.Ma}}</td>
-            <td class="word-break">{{ctdh.MaDonHang}}</td>
             <td class="word-break">{{ctdh.MaPhuKien}}</td>
-            <td class="">{{ctdh.Ten}}</td>
+            <td class="">{{ctdh.PhuKienThoiTrang.Ten}}</td>
             
             <td>
-                <img class="img-in-table-1" src="{{ctdh.Hinh}}" alt="">
+                <img class="img-in-table-1" src="{{ctdh.PhuKienThoiTrang.Hinh}}" alt="">
             </td>
-            <td class="">{{ctdh.Gia|currency:'VND':'symbol'}}</td>
+            <td class="">{{ctdh.KichThuoc}}</td>
+            <td class="">{{ctdh.PhuKienThoiTrang.Gia|currency:'VND':'symbol'}}</td>
+            <td class="">{{ctdh.SoLuong}}</td>
         </tr>
     </ng-template>
     </p-table>

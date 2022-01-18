@@ -56,17 +56,6 @@ import { DangDatComponent } from './quan-ly/don-hang/dang-dat/dang-dat.component
 import { TaoThongBaoComponent } from './quan-ly/tin-nhan/tao-thong-bao/tao-thong-bao.component';
 import { XemTinNhanComponent } from './quan-ly/tin-nhan/xem-tin-nhan/xem-tin-nhan.component';
 
-// var firebaseConfig = {
-//   apiKey: "AIzaSyAOEeZAOCt8TNfDqqRed0IArzJ4Nv1A9HE",
-//   authDomain: "doan1-6aa37.firebaseapp.com",
-//   databaseURL: "https://doan1-6aa37.firebaseio.com",
-//   projectId: "doan1-6aa37",
-//   storageBucket: "doan1-6aa37.appspot.com",
-//   messagingSenderId: "51465047436",
-//   appId: "1:51465047436:web:b74502032508a9890bdaa9",
-//   measurementId: "G-5CNHQB62CB"
-// };
-
 var firebaseConfig = {
   apiKey: "AIzaSyAP_BTnqkjOcddoNzn_UK_fJy0eJF46_YY",
   authDomain: "weclothes-7dc2a.firebaseapp.com",
@@ -127,7 +116,7 @@ var firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]

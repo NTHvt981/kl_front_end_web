@@ -7,7 +7,7 @@
         (ngSubmit)="themPktt()">
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
             <mat-form-field>
                 <input matInput type="text" 
                 placeholder="Name" 
@@ -17,17 +17,32 @@
                 </mat-error>
             </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <mat-form-field appearance="fill">
                 <mat-label>Type</mat-label>
                 <mat-select formControlName="loai">
-                    <mat-option *ngFor="let loai of enLoaiOptions" [value]="loai">
+                    <mat-option *ngFor="let loai of loaiOptions" [value]="loai">
                     {{loai}}
                     </mat-option>
                 </mat-select>                
                 <mat-error *ngIf="loai.errors?.required && loai.touched">
                     Type must not be empty
                 </mat-error>
+                </mat-form-field>
+            </div>
+
+            
+            <div class="col-md-3">
+                <mat-form-field appearance="fill">
+                    <mat-label>Specific type</mat-label>
+                    <mat-select formControlName="phanLoai">
+                        <mat-option *ngFor="let phanLoai of phanLoaiOptions.get(loai.value)" [value]="phanLoai">
+                        {{phanLoai}}
+                        </mat-option>
+                    </mat-select>                
+                    <mat-error *ngIf="phanLoai.errors?.required && phanLoai.touched">
+                        Specific type must not be empty
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>

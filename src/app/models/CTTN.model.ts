@@ -1,11 +1,12 @@
+import * as firebase from 'firebase/compat/app';
 export class CTTN {
     Ma:string;
     MaTinNhan:string;
     MaNguoiTao:string;
     TenNguoiTao:string;
     NoiDung:string;
-    HinhAnh:string = null;
-    ThoiGianTao:Date;
+    HinhAnh:string = '';
+    ThoiGianTao:firebase.default.firestore.Timestamp;
     DoQuanTriTao:boolean;
     
     public constructor(init?:Partial<CTTN>) {
@@ -23,7 +24,7 @@ export class CTTN {
         this.DoQuanTriTao = true;
         this.MaNguoiTao = "";
         this.TenNguoiTao = "Quản trị";
-        this.ThoiGianTao = new Date();
+        this.ThoiGianTao = firebase.default.firestore.Timestamp.now();
     }
 
     toMap(): object {

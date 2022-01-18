@@ -3,7 +3,7 @@ import { PKTT } from './../../models/PKTT.model';
 import { DonHang } from './../../models/DonHang.model';
 import { switchMap, map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { CTDH, CTDHConverter } from './../../models/CTDH.model';
+import { CTDH } from './../../models/CTDH.model';
 import { AngularFirestore, DocumentData } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 import { DonHangService } from './don-hang.service';
@@ -24,7 +24,7 @@ export class CtdhService {
         .pipe<CTDH[]>(map((data) => {
           let dsCTDH: CTDH[] = [];
 
-          data.forEach(doc => {
+          data.forEach(async doc => {
             let ctdh: CTDH = {
               Ma:            doc.get("Ma"),
               MaDonHang:     doc.get("MaDonHang"),
@@ -32,11 +32,18 @@ export class CtdhService {
               Ten:           doc.get("Ten"),
               Hinh:          doc.get("Hinh"),
               Gia:           doc.get("Gia"),
+              KichThuoc:       doc.get("KichThuoc"),
+              SoLuong:       doc.get("SoLuong"),
               PhuKienThoiTrang: null
             }
+          
+            console.log(ctdh);
+            await this.pkttService.getPKTT(ctdh.MaPhuKien).then((phuKien: PKTT) => {
+              ctdh.PhuKienThoiTrang = phuKien;
+            });
 
-          dsCTDH.push(ctdh);
-        })
+            dsCTDH.push(ctdh);
+          })
 
         return dsCTDH;
       }));
@@ -56,31 +63,5 @@ export class CtdhService {
           resolve(donHang);
         });
     });
-  }
-
-  public async getAllCTDH() {
-    let dsCTDH: CTDH[] = [];
-    let dsDH: DonHang[] = [];
-
-    let service = new DonHangService(this.firestore);
-
-    await service.getAllDonHang().then((donHangs) => {
-      dsDH = donHangs;
-    });
-
-    for await (const donHang of dsDH) {
-      await (this.getCTDHInDonHang(donHang));
-      
-      for await (const ctdh of donHang.ChiTietDonHangs) {
-        await this.pkttService.getPKTT(ctdh.MaPhuKien).then((value) => {
-          ctdh.PhuKienThoiTrang = value;
-        });
-      }
-    }
-
-    await dsDH.forEach(await(async (donHang) => {
-    }));
-
-    return dsDH;
   }
 }
