@@ -36,9 +36,12 @@
             <ng-template ngFor let-cttn [ngForOf]="dsCTTN" let-i="index">
                 <div *ngIf="cttn.TenNguoiTao != 'Quản trị'; then thenBlock else elseBlock"></div>
                 <ng-template #thenBlock>
+                    <div *ngIf="cttn.NoiDung != ''; then himChat"></div>
+                    <ng-template #himChat>
                     <li class="him-chat on-left">
                         {{cttn.NoiDung}}
                     </li>
+                    </ng-template>
 
                     <div *ngIf="cttn.HinhAnh != ''; then himImg"></div>
                     <ng-template #himImg>
@@ -48,9 +51,12 @@
                     </ng-template>
                 </ng-template>
                 <ng-template #elseBlock>
+                    <div *ngIf="cttn.NoiDung != ''; then meChat"></div>
+                    <ng-template #meChat>
                     <li class="me-chat on-right">
                         {{cttn.NoiDung}}
                     </li>
+                    </ng-template>
 
                     <div *ngIf="cttn.HinhAnh != ''; then meImg"></div>
                     <ng-template #meImg>
